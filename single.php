@@ -5,7 +5,7 @@
    $row=mysqli_fetch_array($query);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir="rtl" lang="en">
 
 <head>
 
