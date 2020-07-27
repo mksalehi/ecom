@@ -7,12 +7,14 @@
     color: #ffffff;
     height: 50px;
 
+
 }
 nav h2{
     padding: 5px;
 }
 .admin-panel{
     height: auto;
+
 }
 
 .admin-panel .col-2{
@@ -22,6 +24,8 @@ nav h2{
     background: #212529;
     font-size: 1.3rem;
     text-decoration: none;
+
+
 }
 .admin-panel .col-10{
     display: block;

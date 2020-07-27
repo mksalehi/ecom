@@ -1,6 +1,6 @@
 <div class="card mb-3">
     <div class="card-header">
-       نظرات تایید نشده
+        <h4 align="right" style="color: darkred"> نظرات تایید نشده</h4>
     </div>
 <div class="card-body">
     <div class="table-responsive">
@@ -38,7 +38,7 @@
 </br>
 <div class="card mb-3">
     <div class="card-header">
-       نظرات تایید شده
+        <h4 align="right" style=" color: #1e7e34"> نظرات تایید شده</h4>
     </div>
 <div class="card-body">
     <div class="table-responsive">
@@ -49,7 +49,7 @@
                 <th>نام</th>
                 <th>ایمیل</th>
                 <th>محتوا</th>
-                <th>پذیرفتن</th>
+                <th>نپذیرفتن</th>
                 <th>حذف</th>
 
             </tr>

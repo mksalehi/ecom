@@ -1,3 +1,9 @@
+<?php require_once '../inc/config.php';
+if(!isset($_SESSION['admin'])){
+header('Location: http://localhost:8181/ecom/admin/login.php');
+}
+?>
+
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
 <head>
@@ -7,13 +13,12 @@
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-
 </head>
 <body>
 <nav class="nav top-bar">
-<h2 class="float-left">Admin Panel</h2>
+<h2 class="float-right">Admin Panel</h2>
 </nav>
-   
+
    <div class="container-fluid">
         <div class="row admin-panel">
             <div class="col-2">
@@ -30,112 +35,84 @@
             <div class="col-10">
             <?php
             if(isset($_GET['add-new-product'])){
-                echo '<h1>add-new-product</h1>';
+                require_once 'add-new-product.php';
 
             }elseif(isset($_GET['order'])){
                 require_once 'orders.php';
 
             }elseif(isset($_GET['cats'])){
-                echo '<h1>cats</h1>';
+                require_once 'cats.php';
 
             }elseif(isset($_GET['comments'])){
                 require_once 'comments.php';
 
-            }else{
+            }elseif(isset($_GET['edit-product']) &&
+                isset($_GET['id']) && !empty($_GET['id'])){
+                require_once 'edit-product.php';
+            }
+            else{
+                ?>
+                <!-- table list -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 align="right" style="color: darkred"> لیست محصولات</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table float-right" style="direction: rtl">
+                                <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>تصویر</th>
+                                    <th>نام</th>
+                                    <th>دسته بندی</th>
+                                    <th>قیمت</th>
+                                    <th>مشاهده</th>
+                                    <th>حذف</th>
+                                    <th>ویرایش</th>
 
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $num=1;
+                                $product_query=mysqli_query($connection,
+                                    "SELECT * FROM products");
+                                while($product_row=mysqli_fetch_array($product_query)):
+                                    $id=$product_row['cat_id'];
+                                    $cat_query=mysqli_query($connection,
+                                        "SELECT * FROM category WHERE id='$id'");
+                                    $cat_row=mysqli_fetch_array($cat_query);
+                                ?>
+                                <tr>
+                                    <td><?php echo $num++; ?></td>
+                                    <td><img src="../inc/uploads/<?php echo $product_row['image']; ?>"></td>
+                                    <td><?php echo $product_row['title']; ?></td>
+                                    <td><?php echo $cat_row['cat_name']; ?></td>
+                                    <td><?php echo $product_row['price']; ?></td>
+                                    <td><a href="../single.php? id=<?php
+                                    echo $product_row['id']; ?>"
+                                           class="btn btn-primary">مشاهده</a></td>
+                                    <td>
+                                        <a href="action.php?delete_product=
+                                        <?php echo $product_row['id']; ?>"
+                                           class="btn btn-danger">حذف</a>
+                                    </td>
+                                    <td>
+                                        <a href="index.php?edit-product&id=
+                                        <?php echo $product_row['id']; ?>"
+                                        class="btn btn-warning">ویرایش</a>
+                                    </td>
+                                </tr>
+                                <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <?php
             }
             ?>
-
-
-                <!-- table list -->
-<div class="card mb-3">
-    <div class="card-header">
-        لیست نمایش
-    </div>
-<div class="card-body">
-    <div class="table-responsive">
-        <table class="table float-right" style="direction: rtl">
-            <thead>
-            <tr>
-                <th>ردیف</th>
-                <th>تصویر</th>
-                <th>نام</th>
-                <th>دسته بندی</th>
-                <th>قیمت</th>
-                <th>مشاهده</th>
-                <th>حذف</th>
-                <th>ویرایش</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td><img src="../uploads/1.jpg" width="100px" height="70px"></td>
-                <td>تست</td>
-                <td>تست</td>
-                <td>100</td>
-                <td><a href="#" class="btn btn-primary">مشاهده</a></td>
-                <td>
-                    <a href="#" class="btn btn-danger">حذف</a>
-                </td>
-                <td>
-                    <a href="#" class="btn btn-warning">ویرایش</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
-
-
-
-
-                <!-- products from -->
-<div class="card mb-3">
-    <div class="card-header">
-        فرم افزودن و ویرایش محصول
-    </div>
-<div class="card-body">
-        <!-- form area -->
-<form>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="عنوان محصول">
-            </div>
-            <div class="form-group">
-                <textarea cols="30" rows="10" class="form-control" placeholder="توضیحات محصول"></textarea>
-            </div>
-            <div class="form-group row">
-                <div class="col-xs-3">
-                    <input type="number" class="form-control" style="margin-left: 14px;" size="60" placeholder="قیمت">
-                </div>
-            </div>
-        </div><!--Main Content-->
-        <aside class="col-md-4">
-            <div class="form-group">
-                <input type="reset" class="btn btn-warning btn-lg" value="پاک کردن">
-                <input type="submit" class="btn btn-primary btn-lg" value="افزودن">
-            </div>
-            <div class="form-group">
-                <select class="form-control">
-                    <option value="">دسته بندی محصول</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="file" class="form-control-file">
-            </div>
-        </aside><!--SIDEBAR-->
-    </div>
-</form>
-
-                        <!-- end form -->
-</div>
-</div>
-                <!-- end product form -->
-
             </div>
         </div>
    </div>
