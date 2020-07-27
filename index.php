@@ -1,6 +1,6 @@
 <?php  require_once 'inc/config.php'; ?>
 <!DOCTYPE html>
-<html dir="rtl" lang="en">
+<html dir="rtl" lang="fa">
 
 <head>
 
@@ -28,24 +28,24 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="collapse navbar-collapse" id="navbarResponsive" >
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">درباره ما</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">پنل مدیریت</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">تماس با ما</a>
                     </li>
-                    <li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin/index.php">پنل مدیریت</a>
+                    </li>
+                    <li >
                         <form action="index.php" method="get">
-                            <div class="input-group">
+                            <div class="input-group" >
                                 <input type="text" name="search"
-                                       class="form-control">
+                                       class="form-control" >
                                 <button class="btn btn-primary"
-                                        name="search-btn">جستجو</button>
+                                        name="search-btn" >جستجو</button>
                             </div>
 
                         </form>
@@ -114,7 +114,9 @@
                                 </p>
                             </div>
                             <div class="card-footer">
-                                <a href="#" class="btn btn-primary">افزودن به سبد</a>
+                                <a href="cartController.php?add-to-cart=
+                                <?php echo $row['id']; ?>"
+                                   class="btn btn-primary">افزودن به سبد</a>
                                 <a href="single.php?id=<?php echo $row['id']; ?>" class="btn btn-success">توضیحات</a>
                             </div>
                         </div>
