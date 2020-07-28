@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2020 at 08:40 PM
+-- Generation Time: Jul 28, 2020 at 03:38 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -25,6 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_persian_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_persian_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_persian_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `password`, `email`) VALUES
+(1, 'salehi', '228800', 'mk.salehi2017@gmail.com'),
+(2, 'kazem', '2288', 'free_x_free2000@yahoo.com');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -38,14 +59,38 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `cat_name`) VALUES
-(1, 'لوازم ورزشی'),
 (2, 'پوشاک'),
 (3, 'لوازم خانگی'),
-(4, 'لوازم بهداشتی'),
 (5, 'مواد غذایی'),
 (6, 'لوازم صوتی و تصویری'),
 (7, 'موبایل'),
-(8, 'کامپیوتر');
+(8, 'کامپیوتر'),
+(14, 'لوازم ورزشی'),
+(15, 'لوازم بهداشتی و آذایشی');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) COLLATE utf8_persian_ci NOT NULL,
+  `price` bigint(20) NOT NULL,
+  `authority` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `price`, `authority`, `status`) VALUES
+(8, 'اسپیکر بودن سیم ان ای سی 60 وات, لباس کودک پرنسس', 4750000, 12345678, 100),
+(9, 'ماکارانی 700 گرمی آنکار', 95000, 0, -21),
+(10, 'تلوزیون ال ای دی 43 اینچ سامسونگ', 6500000, 12345678, 100),
+(11, 'تلوزیون ال ای دی 43 اینچ سامسونگ', 13000000, 0, -21);
 
 -- --------------------------------------------------------
 
@@ -67,14 +112,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `image`, `description`, `cat_id`, `price`) VALUES
-(1, 'میله بارفیکس تن آرا', '1-barfix.jpg', 'میله بارفیکس تن آرا با قابلیت تنظیم قفل دوطرفه افزایش سایز دوطرفه و قابلیت تحمل وزن تا 110 کیلوگرم', 1, 750000),
-(2, 'لباس کودک پرنسس توری', '2-chaild dress.jpg', 'لباس پرنسس توری دخترانه شیک و مجلسی در رنگ ها و طرح های مختلف مناسب برای دختران 3 تا 9 ساله', 2, 2500000),
-(3, 'گرمکن ورزشی آدیداس', '2-garmkon.jpg', 'مناسب برای ورزش های گروهی و صبحگاهی ضد حساسیت و ضد آب با وزن بسیار پائین', 1, 3250000),
-(4, 'تلوزیون ال ای دی 43 اینچ سامسونگ', '3-tv 43 inch samsung.jpg', 'تلوزیون 43 اینچ سامسونگ ال ای دی با تکنلوژی اسمارت ویو و امکان اتصال به اینترنت با پایه نقره ای', 3, 45000000),
+(2, 'لباس  پرنسس', '2-chaild dress.jpg', 'لباس پرنسس توری دخترانه شیک و مجلسی در رنگ ها و طرح های مختلف مناسب برای دختران 3 تا 9 ساله', 2, 2500000),
+(4, 'تلوزیون ال ای دی 43 اینچ سامسونگ', '3-tv 43 inch samsung.jpg', 'تلوزیون 43 اینچ سامسونگ ال ای دی با تکنلوژی اسمارت ویو و امکان اتصال به اینترنت با پایه نقره ای', 3, 6500000),
 (5, 'جارو برقی پارس خزر مدل 1400 وات', '3-vacumcleaner parskhazar 1400 w.jpg', 'جاروبرقی پارس خزر با قدرت کشندگی 1400 وات و مصرف کم انرژی و فوق العاده بی صدا', 3, 21500000),
-(6, 'کرم ضد آفتاب یاشامی روز', '4-kerm.jpg', 'کرم ضدآفتاب یاشامی روز با انزیم های برگرفته از گل روز برای حفاظت از لطافت پوست شما در مقابل آفتاب', 4, 330000),
-(7, 'ست لوازم بهداشتی میکاپ', '4-makeup.jpg', 'ست لوازم بهداشتی میکاپ اوه برای حفظ شادابی و زیبایی شما', 4, 1750000),
-(8, 'رژ لب گلدن روز', '4-roj lab.png', 'با رنگ های متنوع و ضد آب مناسب برای خانم های زیبا', 4, 250000),
+(6, 'کرم ضد آفتاب یاشامی روز', '4-kerm.jpg', 'کرم ضدآفتاب یاشامی روز با انزیم های برگرفته از گل روز برای حفاظت از لطافت پوست شما در مقابل آفتاب', 15, 330000),
+(8, 'رژ لب گلدن روز', '4-roj lab.png', 'با رنگ های متنوع و ضد آب مناسب برای خانم های زیبا', 15, 250000),
 (9, 'ماکارانی 700 گرمی آنکار', '5-makaroni.jpg', 'ماکارانی 700 گرمی با اسناس سبزیجات معطر در طرح های پروانه ای و حلزونی مقوی برای کودکان', 5, 95000),
 (10, 'رشته سوپ 500 گرمی سمیرا', '5-reshteh supi.jpg', 'رشته سوپ 500 گرمی سمیرا غنی شده با ویتامین دی سرشار از امگا 3 مقوی و سالم', 5, 70000),
 (11, 'مینی اسپیکر ان ای سی', '6-mini speaker nec 40w wifi.jpg', 'مینی اسپیکر ان ای سی قابلیت اتصال بصورت بلوتوث و دارای پورت یو اس بی با قدرت صدای 40 وات', 6, 950000),
@@ -92,9 +134,21 @@ INSERT INTO `products` (`id`, `title`, `image`, `description`, `cat_id`, `price`
 --
 
 --
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -108,10 +162,22 @@ ALTER TABLE `products`
 --
 
 --
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
